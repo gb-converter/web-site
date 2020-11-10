@@ -38,3 +38,4 @@ jobs:
         key: ${{ secrets.PROJECT_USER_KEY }}
         source: "website/*"
         target: "website"
+        strip_components: 1
