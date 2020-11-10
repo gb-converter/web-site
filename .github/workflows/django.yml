@@ -28,3 +28,13 @@ jobs:
     - name: Run Tests
       run: |
         python website/manage.py test
+
+    - name: Deploy Django via SSH
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.WEB_HOST }}
+        username: ${{ secrets.PROJECT_USER }}
+        port: ${{ secrets.WEB_HOST_PORT }}
+        key: ${{ secrets.PROJECT_USER_KEY }}
+        source: "website/*"
+        target: "website"
