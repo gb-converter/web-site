@@ -25,7 +25,7 @@ SECRET_KEY = 'jkd#yodi)-+$-le4!06n8xlfp2)6^w@^=)-@lboa7kg6euo71#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['gb-web.itin.co.za']
 
 
 # Application definition
