@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -28,7 +29,6 @@ jobs:
       run: |
         python website/manage.py test
 
-  deploy:
     - name: Deploy Django via SSH
       uses: appleboy/scp-action@master
       with:
@@ -39,10 +39,3 @@ jobs:
         source: "website/*"
         target: "website"
         strip_components: 1
-
-    - name: Collect static assets
-      run: |
-        ssh ${{ secrets.PROJECT_USER }}@${{ secrets.WEB_HOST }} -p ${{ secrets.WEB_HOST_PORT }} -C "python website/manage.py collectstatic"
-    - name: Restart application server
-      run: |
-        ssh ${{ secrets.PROJECT_USER }}@${{ secrets.WEB_HOST }} -p ${{ secrets.WEB_HOST_PORT }} -C "sudo /usr/bin/systemctl restart uwsgi-app@gb.service"
