@@ -25,7 +25,7 @@ SECRET_KEY = 'jkd#yodi)-+$-le4!06n8xlfp2)6^w@^=)-@lboa7kg6euo71#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['gb-web.itin.co.za']
+ALLOWED_HOSTS = ['gb-web.itin.co.za', '127.0.0.1']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'converter_frontend',
 ]
 
 MIDDLEWARE = [
