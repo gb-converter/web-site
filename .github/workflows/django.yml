@@ -39,7 +39,3 @@ jobs:
         source: "website/*"
         target: "website"
         strip_components: 1
-
-    - name:
-      run: |
-        ssh ${{ secrets.PROJECT_USER }}@${{ secrets.WEB_HOST }} -p ${{ secrets.WEB_HOST_PORT }} -i ${{ secrets.PROJECT_USER_KEY }} -C "touch ~/i-was-here"
