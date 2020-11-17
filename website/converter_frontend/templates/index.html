@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Main page</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="static/css/index.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/css/index.css" />
 </head>
 
 <body>
@@ -16,21 +16,21 @@
                         <span class="navigation-list__item-text">
                             Главная
                         </span>
-                        <a href="index.html" class="navigation-list__item-link">
+                        <a href="/home/" class="navigation-list__item-link">
                         </a>
                     </li>
                     <li class="navigation-list__item">
                         <span class="navigation-list__item-text">
                             О проекте
                         </span>
-                        <a href="about.html" class="navigation-list__item-link">
+                        <a href="/about/" class="navigation-list__item-link">
                         </a>
                     </li>
                     <li class="navigation-list__item">
                         <span class="navigation-list__item-text">
                             Контакты
                         </span>
-                        <a href="contacts.html" class="navigation-list__item-link">
+                        <a href="/contacts/" class="navigation-list__item-link">
                         </a>
                     </li>
                 </ul>
@@ -43,7 +43,7 @@
             <div class="page__preview">
                 <img src="" alt="" class="branding__background">
                 <span class="branding__snippet">
-                    Главная страница Интернет-витрины
+                {{ description }}
                 </span>
             </div>
         </div>
