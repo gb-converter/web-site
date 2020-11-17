@@ -19,7 +19,7 @@ def about(request):
 def contacts(request):
     # just display word about by opening /about/ uri
     # return HttpResponse('Контактная информация')
-    template = get_template('contacts.hml')
+    template = get_template('contacts.html')
     context = {'description': 'Сдесь обычно стоит: Главная Страница'}
     return HttpResponse(
         template.render(context)
@@ -36,9 +36,9 @@ def index(request):
     template = Template('<h1>{{ variable }}</h1>')
 
     if CONST:
-        context_value = {'variable': 'variable_value1'}
+        context_value = {'description': 'Главная страница'}
     else:
-        context_value = {'variable': 'variable_value2'}
+        context_value = {'variable': 'Совсем не главная страница'}
 
     context = Context(context_value)
 
@@ -46,8 +46,8 @@ def index(request):
 
 
 def home(request):
-    template = get_template('index.hml')
-    context = {'description': 'Сдесь обычно стоит: Главная Страница'}
+    template = get_template('index.html')
+    context = {'description': 'Сдесь обычно стоит: Домашняя страница'}
     return HttpResponse(
         template.render(context)
     )
