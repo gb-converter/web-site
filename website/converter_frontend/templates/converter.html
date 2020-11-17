@@ -4,45 +4,96 @@
     <meta charset="UTF-8">
     <title>Currency converter</title>
     <link rel="stylesheet" type="text/css" media="screen" href="/static/css/index.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/css/converter.css">
 </head>
 <body>
-    <center>
-        <h1 style="color: green">
+    <div class="page">
+        <header class="page__header">
+            <nav class="page__navigation">
+                <ul class="navigation-list">
+                    <li class="navigation-list__item">
+                        <span class="navigation-list__item-text">
+                            Главная
+                        </span>
+                        <a href="/home/" class="navigation-list__item-link">
+                        </a>
+                    </li>
+                    <li class="navigation-list__item">
+                        <span class="navigation-list__item-text">
+                            О проекте
+                        </span>
+                        <a href="/about/" class="navigation-list__item-link">
+                        </a>
+                    </li>
+                    <li class="navigation-list__item">
+                        <span class="navigation-list__item-text">
+                            Контакты
+                        </span>
+                        <a href="/contacts/" class="navigation-list__item-link">
+                        </a>
+                    </li>
+                    <li class="navigation-list__item">
+                        <span class="navigation-list__item-text">
+                            Конвертер валют
+                        </span>
+                        <a href="/converter/" class="navigation-list__item-link">
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <div class="page__content">
+            <h1 class="page__title">
+                Конвертер Валюты
+            </h1>
+            <center>
+                <form>
 
-        </h1>
-        <form>
+                    <div class="dropdown">
+                        <button class="pick_currency">
+                            Укажите тип валюты
+                        </button>
 
-            <div class="dropdown">
-                <button class="pick_currency">
-                    Укажите тип валюты
-                </button>
+                        <div class="dropdown-content">
+                            <a href="#"><img src="/static/img/afghanistan-flag-xs.png" width="20" height="15"> India</a>
+                            <a href="#"><img src="" width="20" height="15"> USA</a>
+                            <a href="#"><img src="" width="20" height="15"> England</a>
+                            <a href="#"><img src="" width="20" height="15"> Brazil</a>
+                            <a href="#"><img src="" width="20" height="15"> Евро</a>
+                        </div>
+                    </div>
+                    <label for="In_Currency">Введите Количество</label>
+                    <input id="In_Currency" type="number" step="0.01">
+                    <div class="dropdown">
+                        <button class="pick_currency">
+                            Конвертировать в
+                        </button>
 
-                <div class="dropdown-content">
-                    <a href="#"><img src="/static/img/afghanistan-flag-xs.png" width="20" height="15"> India</a>
-                    <a href="#"><img src="" width="20" height="15"> USA</a>
-                    <a href="#"><img src="" width="20" height="15"> England</a>
-                    <a href="#"><img src="" width="20" height="15"> Brazil</a>
-                    <a href="#"><img src="" width="20" height="15"> Евро</a>
-                </div>
+                        <div class="dropdown-content">
+                            <a href="#"><img src="/static/img/afghanistan-flag-xs.png" width="20" height="15"> India</a>
+                            <a href="#"><img src="" width="20" height="15"> USA</a>
+                            <a href="#"><img src="" width="20" height="15"> England</a>
+                            <a href="#"><img src="" width="20" height="15"> Brazil</a>
+                            <a href="#"><img src="" width="20" height="15"> Евро</a>
+                        </div>
+                    </div>
+                    <input type="submit" value="Конвертировать">
+                </form>
+            </center>
+            <div class="page__preview">
+                <img src="" alt="" class="branding__background">
+                <span class="branding__snippet">
+                {{ description }}
+                </span>
             </div>
-            <label for="In_Currency">Введите Количество</label>
-            <input id="In_Currency" type="number" step="0.01">
-            <div class="dropdown">
-                <button class="pick_currency">
-                    Конвертировать в
-                </button>
+        </div>
+        <footer class="page__footer">
+            <span class="page__copyright">
+                © GeekBrains
+            </span>
+        </footer>
+    </div>
 
-                <div class="dropdown-content">
-                    <a href="#"><img src="/static/img/afghanistan-flag-xs.png" width="20" height="15"> India</a>
-                    <a href="#"><img src="" width="20" height="15"> USA</a>
-                    <a href="#"><img src="" width="20" height="15"> England</a>
-                    <a href="#"><img src="" width="20" height="15"> Brazil</a>
-                    <a href="#"><img src="" width="20" height="15"> Евро</a>
-                </div>
-            </div>
-            <input type="submit" value="Конвертировать">
-        </form>
-    </center>
 </body>
 
 </html>
