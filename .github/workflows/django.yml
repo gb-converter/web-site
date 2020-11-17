@@ -41,9 +41,12 @@ jobs:
         target: "website"
         strip_components: 1
 
-    - name: Collect New Static and restart application server
-      run: |
-        yes yes | /home/${{ secrets.PROJECT_USER }}/venv/bin/python /home/${{ secrets.PROJECT_USER }}/website/manage.py collectstatic
-        sudo /usr/bin/systemctl restart uwsgi-app@${{ secrets.PROJECT_USER }}.service
-        
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.WEB_HOST }}
+        username: ${{ secrets.PROJECT_USER }}
+        port: ${{ secrets.WEB_HOST_PORT }}
+        key: ${{ secrets.PROJECT_USER_KEY }}
+        script: yes yes | /home/${{ secrets.PROJECT_USER }}/venv/bin/python /home/${{ secrets.PROJECT_USER }}/website/manage.py collectstatic && sudo /usr/bin/systemctl restart uwsgi-app@${{ secrets.PROJECT_USER }}.service
         
