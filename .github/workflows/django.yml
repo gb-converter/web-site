@@ -11,7 +11,7 @@ jobs:
 
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 4
+      max-parallel: 1
       matrix:
         python-version: [3.8]
 
@@ -23,8 +23,9 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install Dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        python3 -m venv venv/
+        venv/bin/python -m pip install --upgrade pip
+        venv/bin/pip install -r requirements.txt
     - name: Run Tests
       run: |
         python website/manage.py test
@@ -39,3 +40,10 @@ jobs:
         source: "website/*"
         target: "website"
         strip_components: 1
+
+    - name: Collect New Static and restart application server
+      run: |
+        yes yes | /home/${{ secrets.PROJECT_USER }}/venv/bin/python /home/${{ secrets.PROJECT_USER }}/website/manage.py collectstatic
+        sudo /usr/bin/systemctl restart uwsgi-app@${{ secrets.PROJECT_USER }}.service
+        
+        
