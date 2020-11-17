@@ -22,7 +22,7 @@ from converter_frontend.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', converter),
+    path('', home),
     path('about/', about),
     path('home/', home),
     path('index/', index),
