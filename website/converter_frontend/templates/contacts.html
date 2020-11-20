@@ -34,22 +34,11 @@
                 Контакты
             </h1>
             <ul class="contacts-list">
-                {% for key, value in context.items %}
+                {% for key, value in project_components.items %}
                 <li>
                     <span>
-                        {{ key }} {{ value }}
+                        <a href="{{ value }}" name="{{ key }}" target="_blank">{{ key }}</a>
                     </span>
-                    {% if key=='project_components' %}
-                    <ul>
-                        {% for sub_key, sub_value in value.items %}
-                        <li>
-                            <span>
-                                {{ sub_key }}: {{ sub_value }}
-                            </span>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
                 </li>
                 {% endfor %}
             </ul>
