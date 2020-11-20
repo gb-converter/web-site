@@ -24,18 +24,19 @@ def contacts(request):
     # just display word about by opening /about/ uri
     # return HttpResponse('Контактная информация')
     template = get_template('contacts.html')
-    context = {
-        'project_home': 'https://github.com/gb-converter?tab=projects',
-        'project_components': {
-            'api': 'https://github.com/gb-converter/parser',
-            'parser': 'https://github.com/gb-converter/parser',
-            'web': 'https://github.com/gb-converter/web-site'
+    return render(
+        request,
+        'contacts.html',
+        {
+            'context': {
+                'project_home': 'https://github.com/gb-converter?tab=projects',
+                'project_components': {
+                    'api': 'https://github.com/gb-converter/parser',
+                    'parser': 'https://github.com/gb-converter/parser',
+                    'web': 'https://github.com/gb-converter/web-site'
+                }
+            }
         }
-
-    }
-
-    return HttpResponse(
-        template.render(context)
     )
 
 
