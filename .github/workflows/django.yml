@@ -41,7 +41,7 @@ jobs:
         target: "website"
         strip_components: 1
 
-    - name: executing remote ssh commands using password
+    - name: Collect static and restart Application Server uWSGI
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.WEB_HOST }}
