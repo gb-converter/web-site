@@ -13,16 +13,9 @@
                 <ul class="navigation-list">
                     <li class="navigation-list__item">
                         <span class="navigation-list__item-text">
-                            Главная
+                            Конвертер валют
                         </span>
-                        <a href="/home/" class="navigation-list__item-link">
-                        </a>
-                    </li>
-                    <li class="navigation-list__item">
-                        <span class="navigation-list__item-text">
-                            О проекте
-                        </span>
-                        <a href="/about/" class="navigation-list__item-link">
+                        <a href="/" class="navigation-list__item-link">
                         </a>
                     </li>
                     <li class="navigation-list__item">
@@ -32,53 +25,36 @@
                         <a href="/contacts/" class="navigation-list__item-link">
                         </a>
                     </li>
-                    <li class="navigation-list__item">
-                        <span class="navigation-list__item-text">
-                            Конвертер валют
-                        </span>
-                        <a href="/converter/" class="navigation-list__item-link">
-                        </a>
-                    </li>
                 </ul>
             </nav>
         </header>
+
         <div class="page__content">
             <h1 class="page__title">
                 Конвертер Валюты
             </h1>
-            <center>
-                <form>
 
-                    <div class="dropdown">
-                        <button class="pick_currency">
-                            Укажите тип валюты
-                        </button>
+            <form action="/" target="_self" method="post">{% csrf_token %}
+                <label for="from_currency">У меня есть:</label>
+                <select name="from_currency" id="from_currency">
+                    {% for key, value in currency_info.items %}
+                    <option value="{{ key }}">{{ key }} {{ value.Символ }}</option>
+                    {% endfor %}
+                </select>
 
-                        <div class="dropdown-content">
-                            <a href="#"><img src="/static/img/afghanistan-flag-xs.png" width="20" height="15"> India</a>
-                            <a href="#"><img src="" width="20" height="15"> USA</a>
-                            <a href="#"><img src="" width="20" height="15"> England</a>
-                            <a href="#"><img src="" width="20" height="15"> Brazil</a>
-                            <a href="#"><img src="" width="20" height="15"> Евро</a>
-                        </div>
-                    </div>
-                    <label for="In_Currency">Введите Количество</label>
-                    <input id="In_Currency" type="number" step="0.01">
-                    <div class="dropdown">
-                        <button class="pick_currency">
-                            Конвертировать в
-                        </button>
+                <input type="number" step="0.01" id="amount_of_currency_from" name="amount_of_currency_from" />
 
-                        <div class="dropdown-content">
-                            <a href="#"><img src="/static/img/afghanistan-flag-xs.png" width="20" height="15"> India</a>
-                            <a href="#"><img src="" width="20" height="15"> USA</a>
-                            <a href="#"><img src="" width="20" height="15"> England</a>
-                            <a href="#"><img src="" width="20" height="15"> Brazil</a>
-                            <a href="#"><img src="" width="20" height="15"> Евро</a>
-                        </div>
-                    </div>
-                    <input type="submit" value="Конвертировать">
-                </form>
+                <label for="to_currency">Хочу получить</label>
+                <select name="to_currency" id="to_currency">
+                    {% for key, value in currency_info.items %}
+                    <option value="{{ key }}">{{ key }} {{ value.Символ }}</option>
+                    {% endfor %}
+                </select>
+
+              <br><br>
+              <input type="submit" value="Конвертировать">
+            </form>
+
             </center>
             <div class="page__preview">
                 <img src="" alt="" class="branding__background">

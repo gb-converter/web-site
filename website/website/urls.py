@@ -16,16 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from converter_frontend.views import (
-    index, home, contacts,  converter, about
+   converter, contacts
 )
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home),
-    path('about/', about),
-    path('home/', home),
-    path('index/', index),
-    path('converter/', converter),
+    path('', converter),
     path('contacts/', contacts),
 ]

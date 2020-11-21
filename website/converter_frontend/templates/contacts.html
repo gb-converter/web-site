@@ -14,16 +14,9 @@
                 <ul class="navigation-list">
                     <li class="navigation-list__item">
                         <span class="navigation-list__item-text">
-                            Главная
+                            Конвертер валют
                         </span>
-                        <a href="/home/" class="navigation-list__item-link">
-                        </a>
-                    </li>
-                    <li class="navigation-list__item">
-                        <span class="navigation-list__item-text">
-                            О проекте
-                        </span>
-                        <a href="/about/" class="navigation-list__item-link">
+                        <a href="/" class="navigation-list__item-link">
                         </a>
                     </li>
                     <li class="navigation-list__item">
@@ -31,13 +24,6 @@
                             Контакты
                         </span>
                         <a href="/contacts/" class="navigation-list__item-link">
-                        </a>
-                    </li>
-                    <li class="navigation-list__item">
-                        <span class="navigation-list__item-text">
-                            Конвертер валют
-                        </span>
-                        <a href="/converter/" class="navigation-list__item-link">
                         </a>
                     </li>
                 </ul>
@@ -48,21 +34,13 @@
                 Контакты
             </h1>
             <ul class="contacts-list">
+                {% for key, value in project_components.items %}
                 <li>
                     <span>
-                        Контакт 1
+                        <a href="{{ value }}" name="{{ key }}" target="_blank">{{ key }}</a>
                     </span>
                 </li>
-                <li>
-                    <span>
-                        Контакт 2
-                    </span>
-                </li>
-                <li>
-                    <span>
-                        Контакт 3
-                    </span>
-                </li>
+                {% endfor %}
             </ul>
         </div>
         <footer class="page__footer">
