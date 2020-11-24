@@ -1,0 +1,22 @@
+{% extends 'converter_frontend/base.html' %}
+
+{% block page_title %}
+Контакты
+{% endblock %}
+
+{% block page_content %}
+    <div class="page__content">
+        <h1 class="page__title">
+            Контакты
+        </h1>
+        <ul class="contacts-list">
+            {% for key, value in project_components.items %}
+            <li>
+                <span>
+                    <a href="{{ value }}" name="{{ key }}" target="_blank">{{ key }}</a>
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

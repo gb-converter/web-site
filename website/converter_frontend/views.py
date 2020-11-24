@@ -7,7 +7,7 @@ from django.shortcuts import render
 def contacts(request):
     return render(
         request,
-        'contacts.html',
+        'converter_frontend/contacts.html',
         {
             'project_components': {
                 'Домашняя страница проекта': 'https://github.com/gb-converter?tab=projects',
@@ -43,7 +43,7 @@ def converter(request):
 
     return render(
         request,
-        'converter.html',
+        'converter_frontend/converter.html',
         {
             'currency_info': currencies_data,
             'currencies_rate_date': currencies_date
