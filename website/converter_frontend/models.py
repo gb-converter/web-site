@@ -11,18 +11,28 @@ class Currencies(models.Model):
         unique=True,
         null=False,
     )
-    num_code = models.SmallIntegerField
+    num_code = models.CharField(
+        max_length=3,
+        unique=True,
+        null=False,
+    )
     symbol = models.CharField(
         max_length=5,
         blank=True,
         null=True,
     )
-    unit = models.IntegerField
+    unit = models.IntegerField(
+        default=1,
+    )
     currency_name = models.CharField(max_length=70)
 
 
 class Rates(models.Model):
-    date = models.DateField()
+    date = models.DateField(
+        default='1970-01-01',
+        null=False,
+        blank=False,
+    )
     curr_id = models.ForeignKey(
         Currencies, on_delete=models.CASCADE
     )
