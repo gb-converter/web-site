@@ -2,6 +2,7 @@ import os
 import json
 
 from django.shortcuts import render
+from datetime import datetime
 
 
 def contacts(request):
@@ -23,11 +24,29 @@ def converter(request):
 
     path = os.path.join((os.getcwd()), 'data_file.json')
 
+    # first check if we have datafile, and download if it is not present
+    if not os.path.isfile(path):
+        try:
+            os.system(f'python parser.py --path {os.getcwd()}')
+        except OSError:
+            pass
+
+    # now try to extract data from downloaded file if any,
+    # if data is unreadable or still no file, form dumb dictionary:
     try:
         with open(path, 'r',  encoding='utf-8') as data:
             currencies_data = json.load(data)
-    except FileNotFoundError:
-        os.system(f'python parser.py --path {os.getcwd()}')
+    except (json.JSONDecodeError, FileNotFoundError):
+        currencies_data = {
+            "Date": datetime.now(),
+            "Недоступно": {
+                "Цифр. код": "00000",
+                "Символ": "",
+                "Единица": "",
+                "Валюта": "Недоступно",
+                "Курс": "1,0000"
+            }
+        }
 
     # Extract date from dictionary
     currencies_date = currencies_data.pop("Date")
@@ -49,4 +68,3 @@ def converter(request):
             'currencies_rate_date': currencies_date
         }
     )
-
