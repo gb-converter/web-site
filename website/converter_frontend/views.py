@@ -21,17 +21,17 @@ def contacts(request):
 
 
 def converter(request):
-
     path = os.path.join((os.getcwd()), 'data_file.json')
 
     # first check if we have datafile, and download if it is not present
+    # ignore errors if any
     if not os.path.isfile(path):
         try:
             os.system(f'python parser.py --path {os.getcwd()}')
         except OSError:
             pass
 
-    # now try to extract data from downloaded file if any,
+    # now try to extract data from downloaded file if it was created,
     # if data is unreadable or still no file, form dumb dictionary:
     try:
         with open(path, 'r',  encoding='utf-8') as data:
@@ -58,7 +58,7 @@ def converter(request):
     #     "Единица": "1",
     #     "Валюта": "Австралийский доллар",
     #     "Курс": "55,5784"
-    #   }
+    #   },
 
     return render(
         request,
