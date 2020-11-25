@@ -13,14 +13,14 @@
             <label for="from_currency">У меня есть:</label>
             <select name="from_currency" id="from_currency">
                 {% for key, value in currency_info.items %}
-                <option value="{{ key }}">{{ key }} {{ value.Символ }}</option>
+                    <option value="{{ key }}">{{ value.Валюта }} {{ value.Символ }}</option>
                 {% endfor %}
             </select>
             <input type="number" step="0.01" id="amount_of_currency_from" name="amount_of_currency_from" />
             <label for="to_currency">Хочу получить</label>
             <select name="to_currency" id="to_currency">
                 {% for key, value in currency_info.items %}
-                <option value="{{ key }}">{{ key }} {{ value.Символ }}</option>
+                    <option value="{{ key }}">{{ value.Валюта }} {{ value.Символ }}</option>
                 {% endfor %}
             </select>
           <br/>
