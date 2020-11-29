@@ -5,7 +5,7 @@ from .models import Currencies, Rates
 # Register your models here.
 @admin.register(Currencies)
 class CurrenciesAdmin(admin.ModelAdmin):
-    list_display = ('id', 'iso', 'num_code', 'symbol', 'currency_name',)
+    list_display = ('iso', 'num_code', 'symbol', 'currency_name',)
     list_filter = ('iso', )
 
 
