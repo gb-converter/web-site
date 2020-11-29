@@ -26,6 +26,7 @@ class Currencies(models.Model):
     )
     currency_name = models.CharField(max_length=70)
 
+    # Representation of this model in russian in admin backend
     class Meta:
         verbose_name = 'Валюта'
         verbose_name_plural = 'Валюты'
@@ -46,6 +47,7 @@ class Rates(models.Model):
         default=1,
     )
 
+    # Representation of this model in russian in admin backend
     class Meta:
         verbose_name = 'Курс'
         verbose_name_plural = 'Курсы'
