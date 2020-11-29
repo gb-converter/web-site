@@ -26,6 +26,10 @@ class Currencies(models.Model):
     )
     currency_name = models.CharField(max_length=70)
 
+    class Meta:
+        verbose_name = 'Валюта'
+        verbose_name_plural = 'Валюты'
+
 
 class Rates(models.Model):
     date = models.DateField(
@@ -41,3 +45,7 @@ class Rates(models.Model):
         decimal_places=4,
         default=1,
     )
+
+    class Meta:
+        verbose_name = 'Курс'
+        verbose_name_plural = 'Курсы'
