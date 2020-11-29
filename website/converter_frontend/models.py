@@ -3,9 +3,6 @@ from django.db import models
 
 # Create your models here.
 class Currencies(models.Model):
-    id = models.IntegerField(
-        primary_key=True,
-    )
     iso = models.CharField(
         max_length=3,
         unique=True,
