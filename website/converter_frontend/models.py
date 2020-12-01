@@ -35,6 +35,9 @@ class Rates(models.Model):
     curr_id = models.ForeignKey(
         Currencies, on_delete=models.CASCADE
     )
+    unit = models.IntegerField(
+        default=1,
+    )
     rate = models.DecimalField(
         max_digits=10,
         decimal_places=4,
