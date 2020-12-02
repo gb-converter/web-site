@@ -1,8 +1,10 @@
 from rest_framework import serializers
 
-from website.converter_frontend.models import Currencies, Rates
+from converter_frontend.models import Currencies, Rates
 
 
+# Serialisation - translating a data structure or object state
+# into a format that can be stored
 class CurrenciesSerializer(serializers.ModelSerializer):
 
     class Meta:
