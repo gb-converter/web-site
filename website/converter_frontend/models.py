@@ -18,9 +18,6 @@ class Currencies(models.Model):
         blank=True,
         null=True,
     )
-    unit = models.IntegerField(
-        default=1,
-    )
     currency_name = models.CharField(max_length=70)
 
     # Representation of this model in russian in admin backend
@@ -41,6 +38,9 @@ class Rates(models.Model):
     rate = models.DecimalField(
         max_digits=10,
         decimal_places=4,
+        default=1,
+    )
+    unit = models.IntegerField(
         default=1,
     )
 
