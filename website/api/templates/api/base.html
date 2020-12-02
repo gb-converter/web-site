@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>{% block page_title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/api/css/index.css" />
+</head>
+<body>
+    <div class="page">
+        <header class="page__header">
+            <nav class="page__navigation">
+                <ul class="navigation-list">
+                    <li class="navigation-list__item">
+                        <span class="navigation-list__item-text">
+                            Docs
+                        </span>
+                        <a href="{% url 'api:docs' %}" class="navigation-list__item-link">
+                        </a>
+                    </li>
+                    <li class="navigation-list__item">
+                        <span class="navigation-list__item-text">
+                            Methods
+                        </span>
+                        <a href="{% url 'api:methods' %}" class="navigation-list__item-link">
+                        </a>
+                    </li>
+                    <li class="navigation-list__item">
+                        <span class="navigation-list__item-text">
+                            Endpoints
+                        </span>
+                        <a href="{% url 'api:endpoints' %}" class="navigation-list__item-link">
+                        </a>
+                    </li>
+                    <li class="navigation-list__item">
+                        <span class="navigation-list__item-text">
+                            К веб сайту
+                        </span>
+                        <a href="{% url 'converter_frontend:converter' %}" class="navigation-list__item-link">
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        {% block page_content %}
+        {% endblock %}
+        <footer class="page__footer">
+            <span class="page__copyright">
+                © GeekBrains
+            </span>
+        </footer>
+    </div>
+</body>
+</html>

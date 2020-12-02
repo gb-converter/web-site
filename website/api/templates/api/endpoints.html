@@ -1,0 +1,22 @@
+{% extends 'api/base.html' %}
+
+{% block page_title %}
+Endpoints
+{% endblock %}
+
+{% block page_content %}
+    <div class="page__content">
+        <h1 class="page__title">
+           Endpoints
+        </h1>
+        <ul class="contacts-list">
+            {% for key, value in endpoints.items %}
+            <li>
+                <span>
+                    <a href="{{ value }}" name="{{ key }}" target="_blank">{{ key }}</a>
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
