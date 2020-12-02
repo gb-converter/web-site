@@ -38,7 +38,7 @@ def converter(request):
             currencies_data = json.load(data)
     except (json.JSONDecodeError, FileNotFoundError):
         currencies_data = {
-            "Date": datetime.now(),
+            "Date": datetime.now().date().strftime("%d.%m.%Y"),
             "Недоступно": {
                 "Цифр. код": "000",
                 "Символ": "",

@@ -7,7 +7,7 @@
 {% block page_content %}
     <div class="page__content">
         <h1 class="page__title">
-            Конвертер Валюты
+            Конвертер валют по состоянию на {{ currencies_rate_date }}
         </h1>
         <form action="{% url 'converter_frontend:converter' %}" target="_self" method="post">{% csrf_token %}
             <label for="from_currency">У меня есть:</label>
