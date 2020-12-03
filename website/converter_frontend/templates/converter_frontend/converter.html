@@ -16,7 +16,7 @@
                     <option value="{{ key }}">{{ value.Валюта }} {{ value.Символ }}</option>
                 {% endfor %}
             </select>
-            <input type="number" step="0.01" id="amount_of_currency_from" name="amount_of_currency_from" />
+            <input type="number" step="0.01" id="amount_of_currency_from" name="amount_of_currency_from" required/>
             <label for="to_currency">Хочу получить</label>
             <select name="to_currency" id="to_currency">
                 {% for key, value in currency_info.items %}
@@ -27,7 +27,7 @@
           <input type="submit" value="Конвертировать">
         </form>
         <div class="result">
-
+            <h2 align="center">{{ converter }} {{ symbol }}</h2>
         </div>
         <div class="page__preview">
             <img src="" alt="" class="branding__background">
