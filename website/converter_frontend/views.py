@@ -23,13 +23,7 @@ def contacts(request):
     )
 
 
-def converter(request):
-
-    from_currency = request.POST['from_currency']
-
-    amount_of_currency_from = float(request.POST['amount_of_currency_from'])
-
-    to_currency = request.POST['to_currency']
+def parse_json():
 
     path = os.path.join((os.getcwd()), 'data_file.json')
 
@@ -59,33 +53,8 @@ def converter(request):
             }
         }
 
-    # Парсим json
-    for key, val in currencies_data.items():
-        if type(val) == str:
-            continue
-        elif key == from_currency:
-            f_currency = float(val['Курс'].replace(',', '.'))
-            if val.get('Символ') is None:
-                f_symbol = 'None'
-            else:
-                f_symbol = val['Символ']
-        elif key == to_currency:
-            t_currency = float(val['Курс'].replace(',', '.'))
-            if val.get('Символ') is None:
-                t_symbol = 'None'
-            else:
-                t_symbol = val['Символ']
-
-    if from_currency == to_currency:
-        culc_result = amount_of_currency_from
-        symbol = f_symbol
-    else:
-        culc_result = round((f_currency * amount_of_currency_from) / t_currency, 4)
-        symbol = t_symbol
-
-
     # Extract date from dictionary
-    currencies_date = currencies_data.pop("Date")
+    # currencies_date = currencies_data.pop("Date")
 
     # Get currency info, a dict in form:
     #   "AUD": {
@@ -95,14 +64,47 @@ def converter(request):
     #     "Валюта": "Австралийский доллар",
     #     "Курс": "55,5784"
     #   },
+    return currencies_data
 
-    return render(
-        request,
-        'converter_frontend/converter.html',
-        {
-            'currency_info': currencies_data,
-            'currencies_rate_date': currencies_date,
-            'converter': culc_result,
-            'symbol': symbol
-        }
-    )
+
+def converter(request):
+
+    currencies_data = parse_json()
+    currencies_date = parse_json().pop("Date")
+
+    from_currency = request.POST.get('from_currency', False)
+    amount_of_currency_from = float(request.POST.get('amount_of_currency_from', False))
+    to_currency = request.POST.get('to_currency', False)
+
+    if from_currency and amount_of_currency_from and to_currency is not False:
+
+        for key, val in currencies_data.items():
+            if type(val) == str:
+                continue
+
+            elif key == from_currency:
+
+                if float(val['Единица']) > 1:
+                    f_currency = float(val['Курс'].replace(',', '.')) / float(val['Единица'])
+                else:
+                    f_currency = float(val['Курс'].replace(',', '.'))
+
+            elif key == to_currency:
+
+                if float(val['Единица']) > 1:
+                    t_currency = float(val['Курс'].replace(',', '.')) / float(val['Единица'])
+                else:
+                    t_currency = float(val['Курс'].replace(',', '.'))
+
+    if from_currency == to_currency:
+        culc_result = amount_of_currency_from
+    else:
+        culc_result = round((f_currency * amount_of_currency_from) / t_currency, 4)
+
+    context = {
+        'currency_info': currencies_data,
+        'currencies_rate_date': currencies_date,
+        'converter': culc_result
+    }
+
+    return render(request, 'converter_frontend/converter.html', context)
