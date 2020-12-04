@@ -3,6 +3,9 @@ import json
 
 from django.shortcuts import render
 from datetime import datetime
+from loguru import logger
+
+logger.add('logg.txt', encoding='UTF-8', format="\n{time} {level} {message}", level="INFO")
 
 
 def contacts(request):
@@ -20,7 +23,8 @@ def contacts(request):
     )
 
 
-def converter(request):
+def parse_json():
+
     path = os.path.join((os.getcwd()), 'data_file.json')
 
     # first check if we have datafile, and download if it is not present
@@ -37,6 +41,7 @@ def converter(request):
         with open(path, 'r',  encoding='utf-8') as data:
             currencies_data = json.load(data)
     except (json.JSONDecodeError, FileNotFoundError):
+        logger.error(f'Ошибка Json файла')
         currencies_data = {
             "Date": datetime.now().date().strftime("%d.%m.%Y"),
             "Недоступно": {
@@ -49,7 +54,7 @@ def converter(request):
         }
 
     # Extract date from dictionary
-    currencies_date = currencies_data.pop("Date")
+    # currencies_date = currencies_data.pop("Date")
 
     # Get currency info, a dict in form:
     #   "AUD": {
@@ -59,12 +64,47 @@ def converter(request):
     #     "Валюта": "Австралийский доллар",
     #     "Курс": "55,5784"
     #   },
+    return currencies_data
 
-    return render(
-        request,
-        'converter_frontend/converter.html',
-        {
-            'currency_info': currencies_data,
-            'currencies_rate_date': currencies_date
-        }
-    )
+
+def converter(request):
+
+    currencies_data = parse_json()
+    currencies_date = parse_json().pop("Date")
+
+    from_currency = request.POST.get('from_currency', False)
+    amount_of_currency_from = float(request.POST.get('amount_of_currency_from', False))
+    to_currency = request.POST.get('to_currency', False)
+
+    if from_currency and amount_of_currency_from and to_currency is not False:
+
+        for key, val in currencies_data.items():
+            if type(val) == str:
+                continue
+
+            elif key == from_currency:
+
+                if float(val['Единица']) > 1:
+                    f_currency = float(val['Курс'].replace(',', '.')) / float(val['Единица'])
+                else:
+                    f_currency = float(val['Курс'].replace(',', '.'))
+
+            elif key == to_currency:
+
+                if float(val['Единица']) > 1:
+                    t_currency = float(val['Курс'].replace(',', '.')) / float(val['Единица'])
+                else:
+                    t_currency = float(val['Курс'].replace(',', '.'))
+
+    if from_currency == to_currency:
+        culc_result = amount_of_currency_from
+    else:
+        culc_result = round((f_currency * amount_of_currency_from) / t_currency, 4)
+
+    context = {
+        'currency_info': currencies_data,
+        'currencies_rate_date': currencies_date,
+        'converter': culc_result
+    }
+
+    return render(request, 'converter_frontend/converter.html', context)
