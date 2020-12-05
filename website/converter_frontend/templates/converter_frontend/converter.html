@@ -10,24 +10,39 @@
             Конвертер валют по состоянию на {{ currencies_rate_date }}
         </h1>
         <form action="{% url 'converter_frontend:converter' %}" target="_self" method="post">{% csrf_token %}
-            <label for="from_currency">У меня есть:</label>
-            <select name="from_currency" id="from_currency" required>
+            <label for="from_currency">У меня есть: </label><input type="number" min="0,0001" step="0.01" id="amount_of_currency_from" name="amount_of_currency_from" class="rounded-input" required />
+            <br><br>
+            <select name="from_currency" id="from_currency" class="rounded-form" required>
                 {% for key, value in currency_info.items %}
-                    <option value="{{ key }}">{{ value.Валюта }} {{ value.Символ }}</option>
+                    {% if value.Валюта != None %}
+                        {% if forloop.first %}
+                            <option selected value="{{ key }}">{{ value.Валюта }} {{ value.Символ }}</option>
+                        {% else %}
+                            <option value="{{ key }}">{{ value.Валюта }} {{ value.Символ }}</option>
+                        {% endif %}
+                    {% endif %}
                 {% endfor %}
             </select>
-            <input type="number" min="0" step="0.01" id="amount_of_currency_from" name="amount_of_currency_from" required/>
-            <label for="to_currency">Хочу получить</label>
-            <select name="to_currency" id="to_currency" required>
+            <br><br>
+            <label for="to_currency">Хочу получить:</label>
+            <br><br>
+            <select name="to_currency" id="to_currency" class="rounded-form" required>
                 {% for key, value in currency_info.items %}
-                    <option value="{{ key }}">{{ value.Валюта }} {{ value.Символ }}</option>
+                    {% if value.Валюта != None %}
+                        {% if forloop.first %}
+                            <option selected value="{{ key }}">{{ value.Валюта }} {{ value.Символ }}</option>
+                        {% else %}
+                            <option value="{{ key }}">{{ value.Валюта }} {{ value.Символ }}</option>
+                        {% endif %}
+                    {% endif %}
                 {% endfor %}
             </select>
-          <br/>
-          <input type="submit" value="Конвертировать">
+          <br><br>
+          <input type="submit" class="rounded-form" value="Конвертировать">
         </form>
-        <div class="result">
-            <h2 align="center">{{ converter }}</h2>
+        <br><br>
+        <div class="rounded-form-result">
+            {{ converter }}
         </div>
         <div class="page__preview">
             <img src="" alt="" class="branding__background">
