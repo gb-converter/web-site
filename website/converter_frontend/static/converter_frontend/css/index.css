@@ -85,3 +85,35 @@ body {
     color: #fff;
     user-select: none;
 }
+
+.rounded-input {
+  padding:5px;
+  border-radius:10px;
+  border: 1px double black;
+  width: 260px;
+  height: 30px;
+  font-size: 1.0em;
+}
+
+.rounded-input:hover {
+  box-shadow:0 0 4px rgba(0,0,0,0.5);
+ }
+
+.rounded-form {
+    border: 1px double black;
+    padding:10px;
+    border-radius:10px;
+    width: 369px;
+    font-size: 1.0em;
+ }
+
+ .rounded-form-result {
+    border: 2px double black;
+    padding:10px;
+    border-radius:10px;
+    width: 345px;
+    font-size: 1.0em;
+    color:DarkBlue;
+    text-align: center;
+    font-weight: 700
+ }
