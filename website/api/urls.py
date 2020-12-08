@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 from rest_framework import routers
 from .views import (
     CurrenciesViewSet,
@@ -12,7 +12,7 @@ from .views import (
 # https://www.django-rest-framework.org/api-guide/routers/
 # https://www.django-rest-framework.org/api-guide/routers/#defaultrouter
 
-# REST framework adds support for automatic URL routing to Django,
+# Django REST framework adds support for automatic URL routing to Django,
 # and provides you with a simple, quick and consistent way of
 # wiring your view logic to a set of URLs.
 
@@ -29,6 +29,7 @@ urlpatterns = [
     path('docs/', docs, name='docs'),
     path('methods/', methods, name='methods'),
     path('endpoints/', endpoints, name='endpoints'),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
 
 # Extend app.url patterns with those provided by router

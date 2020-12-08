@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from rest_framework import viewsets
+from rest_framework import permissions
 from converter_frontend.models import Currencies, Rates
 from .serializers import CurrenciesSerializer, RatesSerializer
 
 
 class CurrenciesViewSet(viewsets.ModelViewSet):
     serializer_class = CurrenciesSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return Currencies.objects.all()
@@ -13,6 +15,7 @@ class CurrenciesViewSet(viewsets.ModelViewSet):
 
 class RatesViewSet(viewsets.ModelViewSet):
     serializer_class = RatesSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return Rates.objects.all()
