@@ -13,7 +13,7 @@ Endpoints
             {% for key, value in endpoints.items %}
             <li>
                 <span>
-                    <a href="{{ value }}" name="{{ key }}" target="_blank">{{ key }}</a>
+                    {{ key }} {{ value }}
                 </span>
             </li>
             {% endfor %}
