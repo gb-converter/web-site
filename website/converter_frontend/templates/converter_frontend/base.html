@@ -7,30 +7,30 @@
 </head>
 <body>
     <div class="page">
-        <header class="page__header">
-            <nav class="page__navigation">
+        <header class="page-header">
+            <nav class="page-navigation">
                 <ul class="navigation-list">
-                    <li class="navigation-list__item">
-                        <span class="navigation-list__item-text">
-                            Конвертер валют
+                    <li>
+                        <span>
+                            <a href="/">
+                                Конвертер валют
+                            </a>
                         </span>
-                        <a href="{% url 'converter_frontend:converter' %}" class="navigation-list__item-link">
-                        </a>
                     </li>
-                    <li class="navigation-list__item">
-                        <span class="navigation-list__item-text">
-                            Контакты
+                    <li>
+                        <span>
+                            <a href="/contacts/">
+                                Контакты
+                            </a>
                         </span>
-                        <a href="{% url 'converter_frontend:contacts' %}" class="navigation-list__item-link">
-                        </a>
                     </li>
                 </ul>
             </nav>
         </header>
         {% block page_content %}
         {% endblock %}
-        <footer class="page__footer">
-            <span class="page__copyright">
+        <footer class="page-footer">
+            <span class="page-copyright">
                 © GeekBrains
             </span>
         </footer>

@@ -72,8 +72,8 @@ def converter(request):
     currencies_data = parse_json()
     currencies_date = parse_json().pop("Date")
 
-    f_currency =  0;
-    t_currency = 0;
+    f_currency =  0
+    t_currency = 0
 
     from_currency = request.POST.get('from_currency', False)
     amount_of_currency_from = abs(float(request.POST.get('amount_of_currency_from', False)))
