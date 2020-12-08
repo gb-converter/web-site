@@ -27,8 +27,8 @@ def docs(request):
         'api/docs.html',
         {
             'docs_components': {
-                'Endpoints': 'https://github.com/gb-converter?tab=projects',
-                'Methods': 'https://github.com/gb-converter/api'
+                'Endpoints': f"{request.scheme}://{request.META['HTTP_HOST']}/api/v1/endpoints/",
+                'Methods': f"{request.scheme}://{request.META['HTTP_HOST']}/api/v1/methods/",
             }
         }
     )
@@ -55,8 +55,9 @@ def endpoints(request):
         'api/endpoints.html',
         {
             'endpoints': {
-                'currency': 'url to manipulate currencies via api',
-                'rates': 'url to manipulate currency rates via api'
+                'currencies': f"{request.scheme}://{request.META['HTTP_HOST']}/api/v1/currencies/",
+                'currency': f"{request.scheme}://{request.META['HTTP_HOST']}/api/v1/currencies/<id>",
+                'rates': f"{request.scheme}://{request.META['HTTP_HOST']}/api/v1/rates/"
             }
         }
     )
