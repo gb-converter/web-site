@@ -43,9 +43,6 @@ class Rates(models.Model):
         decimal_places=4,
         default=1,
     )
-    unit = models.IntegerField(
-        default=1,
-    )
 
     # Representation of this model in russian in admin backend
     class Meta:
