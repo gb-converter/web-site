@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
     strategy:
@@ -26,10 +26,23 @@ jobs:
         python3 -m venv venv/
         venv/bin/python -m pip install --upgrade pip
         venv/bin/pip install -r requirements.txt
-    - name: Run Tests
+    - name: Run API Tests
       run: |
-        venv/bin/python website/manage.py test
+        venv/bin/python website/manage.py test api
+    - name: Run Frontend Tests
+      run: |
+        venv/bin/python website/manage.py test converter_frontend
 
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy
+    needs: [test]
+    strategy:
+      max-parallel: 1
+      matrix:
+        python-version: [3.8]
+
+    steps:
     - name: Deploy Django via SSH
       uses: appleboy/scp-action@master
       with:
@@ -49,4 +62,3 @@ jobs:
         port: ${{ secrets.WEB_HOST_PORT }}
         key: ${{ secrets.PROJECT_USER_KEY }}
         script: yes yes | /home/${{ secrets.PROJECT_USER }}/venv/bin/python /home/${{ secrets.PROJECT_USER }}/website/manage.py collectstatic && sudo /usr/bin/systemctl restart uwsgi-app@${{ secrets.PROJECT_USER }}.service
-        
