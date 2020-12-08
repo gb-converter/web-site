@@ -1,5 +1,6 @@
 from django.urls import include, path
 from rest_framework import routers
+from rest_framework import urls
 from .views import (
     CurrenciesViewSet,
     RatesViewSet,
@@ -18,8 +19,8 @@ from .views import (
 
 router = routers.DefaultRouter()
 
-router.register('currencies', CurrenciesViewSet, basename='currencies')
-router.register('rates', RatesViewSet, basename='rates')
+router.register('currencies/', CurrenciesViewSet, basename='currencies')
+router.register('rates/', RatesViewSet, basename='rates')
 
 # url dispatcher namespace
 app_name = 'api'
@@ -29,7 +30,6 @@ urlpatterns = [
     path('docs/', docs, name='docs'),
     path('methods/', methods, name='methods'),
     path('endpoints/', endpoints, name='endpoints'),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
 
 # Extend app.url patterns with those provided by router
