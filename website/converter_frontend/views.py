@@ -102,7 +102,10 @@ def converter(request):
     if from_currency == to_currency:
         culc_result = amount_of_currency_from
     else:
-        culc_result = round((f_currency * amount_of_currency_from) / t_currency, 4)
+        try:
+            culc_result = round((f_currency * amount_of_currency_from) / t_currency, 4)
+        except ZeroDivisionError:
+                culc_result = 0
 
     context = {
         'currency_info': currencies_data,
