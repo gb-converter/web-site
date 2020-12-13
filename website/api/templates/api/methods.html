@@ -1,0 +1,22 @@
+{% extends 'api/base.html' %}
+
+{% block page_title %}
+Methods
+{% endblock %}
+
+{% block page_content %}
+    <div class="page__content">
+        <h1 class="page__title">
+           Methods
+        </h1>
+        <ul class="contacts-list">
+            {% for key, value in methods.items %}
+            <li>
+                <span>
+                   {{ key }} {{ value }}
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

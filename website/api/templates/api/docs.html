@@ -1,0 +1,22 @@
+{% extends 'api/base.html' %}
+
+{% block page_title %}
+Documentation
+{% endblock %}
+
+{% block page_content %}
+    <div class="page__content">
+        <h1 class="page__title">
+           Documentation Components
+        </h1>
+        <ul class="contacts-list">
+            {% for key, value in docs_components.items %}
+            <li>
+                <span>
+                    <a href="{{ value }}" name="{{ key }}" target="_blank">{{ key }}</a>
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

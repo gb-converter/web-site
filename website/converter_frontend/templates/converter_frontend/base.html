@@ -12,15 +12,22 @@
                 <ul class="navigation-list">
                     <li>
                         <span>
-                            <a href="/">
+                            <a href="{% url 'converter_frontend:converter' %}">
                                 Конвертер валют
                             </a>
                         </span>
                     </li>
                     <li>
                         <span>
-                            <a href="/contacts/">
+                            <a href="{% url 'converter_frontend:contacts' %}">
                                 Контакты
+                            </a>
+                        </span>
+                    </li>
+                    <li>
+                        <span>
+                            <a href="{% url 'api:docs' %}">
+                            Разработчикам
                             </a>
                         </span>
                     </li>
