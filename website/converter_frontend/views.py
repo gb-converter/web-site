@@ -100,14 +100,17 @@ def converter(request):
                     t_currency = float(val['Курс'].replace(',', '.'))
 
     if from_currency == to_currency:
-        culc_result = amount_of_currency_from
+        calc_result = amount_of_currency_from
     else:
-        culc_result = round((f_currency * amount_of_currency_from) / t_currency, 4)
+        try:
+            calc_result = round((f_currency * amount_of_currency_from) / t_currency, 4)
+        except ZeroDivisionError:
+                calc_result = 0
 
     context = {
         'currency_info': currencies_data,
         'currencies_rate_date': currencies_date,
-        'converter': culc_result
+        'converter': calc_result
     }
 
     return render(request, 'converter_frontend/converter.html', context)
