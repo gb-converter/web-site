@@ -31,7 +31,7 @@ def parse_json():
     # ignore errors if any
     if not os.path.isfile(path):
         try:
-            os.system(f'python parser.py --path {os.getcwd()}')
+            os.system(f'python main.py --path {os.getcwd()}')
         except OSError:
             pass
 
