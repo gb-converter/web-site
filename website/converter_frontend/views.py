@@ -3,12 +3,13 @@ import json
 
 from django.shortcuts import render
 from datetime import datetime
-from loguru import logger
+import logging
 
-logger.add('logg.txt', encoding='UTF-8', format="\n{time} {level} {message}", level="INFO")
+logger = logging.getLogger(__name__)
 
 
 def contacts(request):
+    logger.info('contacts')
     return render(
         request,
         'converter_frontend/contacts.html',
@@ -32,7 +33,9 @@ def parse_json():
     if not os.path.isfile(path):
         try:
             os.system(f'python main.py --path {os.getcwd()}')
+            logger.info('Downloading a datafile')
         except OSError:
+            logger.error('Error downloading a datafile')
             pass
 
     # now try to extract data from downloaded file if it was created,
@@ -40,8 +43,9 @@ def parse_json():
     try:
         with open(path, 'r',  encoding='utf-8') as data:
             currencies_data = json.load(data)
+            logger.info('Reading a datafile')
     except (json.JSONDecodeError, FileNotFoundError):
-        logger.error(f'Ошибка Json файла')
+        logger.error('Error JSON datafile')
         currencies_data = {
             "Date": datetime.now().date().strftime("%d.%m.%Y"),
             "Недоступно": {
@@ -68,6 +72,8 @@ def parse_json():
 
 
 def converter(request):
+    logger.info('Converter')
+
     f_currency = 0
     t_currency = 0
 
@@ -103,7 +109,9 @@ def converter(request):
     else:
         try:
             calc_result = round((f_currency * amount_of_currency_from) / t_currency, 4)
+            logger.info('Calculation')
         except ZeroDivisionError:
+            logger.error('Zero division error')
             calc_result = 0
 
     context = {

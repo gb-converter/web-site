@@ -3,6 +3,9 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from converter_frontend.models import Currencies, Rates
 from .serializers import CurrenciesSerializer, RatesSerializer
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class CurrenciesViewSet(viewsets.ModelViewSet):
@@ -22,6 +25,7 @@ class RatesViewSet(viewsets.ModelViewSet):
 
 
 def docs(request):
+    logger.info('docs')
     return render(
         request,
         'api/docs.html',
@@ -35,6 +39,7 @@ def docs(request):
 
 
 def methods(request):
+    logger.info('methods')
     return render(
         request,
         'api/methods.html',
@@ -50,6 +55,7 @@ def methods(request):
 
 
 def endpoints(request):
+    logger.info('endpoints')
     return render(
         request,
         'api/endpoints.html',
