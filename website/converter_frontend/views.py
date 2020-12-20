@@ -68,12 +68,11 @@ def parse_json():
 
 
 def converter(request):
+    f_currency = 0
+    t_currency = 0
 
     currencies_data = parse_json()
     currencies_date = parse_json().pop("Date")
-
-    f_currency =  0
-    t_currency = 0
 
     from_currency = request.POST.get('from_currency', False)
     amount_of_currency_from = abs(float(request.POST.get('amount_of_currency_from', False)))
@@ -105,12 +104,15 @@ def converter(request):
         try:
             calc_result = round((f_currency * amount_of_currency_from) / t_currency, 4)
         except ZeroDivisionError:
-                calc_result = 0
+            calc_result = 0
 
     context = {
         'currency_info': currencies_data,
         'currencies_rate_date': currencies_date,
-        'converter': calc_result
+        'converter': calc_result,
+        'from_currency' : from_currency,
+        'to_currency' : to_currency,
+        'num_of_currency_from' : request.POST.get('amount_of_currency_from', False)
     }
 
     return render(request, 'converter_frontend/converter.html', context)
