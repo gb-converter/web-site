@@ -17,7 +17,6 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 path_up = os.path.abspath(os.path.join(BASE_DIR, 'logs/logs.log'))
-print(path_up)
 
 LOGGING = {
     'version': 1,
