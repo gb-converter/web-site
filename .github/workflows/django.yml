@@ -8,12 +8,26 @@ on:
 
 jobs:
   test:
-
+    environment: testing
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 1
       matrix:
         python-version: [3.8]
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: ${{ secrets.DJANGO_DB_NAME }}
+          POSTGRES_PASSWORD: ${{ secrets.DJANGO_DB_PASS }}
+          POSTGRES_USER: ${{ secrets.DJANGO_DB_USER }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 40s
+          --health-timeout 120s
+          --health-retries 5
 
     steps:
     - uses: actions/checkout@v2
@@ -29,7 +43,25 @@ jobs:
     - name: Run API Tests
       run: |
         venv/bin/python website/manage.py test api
+      env:
+        DJANGO_DB_ENGINE: ${{ secrets.DJANGO_DB_ENGINE }}
+        DJANGO_DB_HOST: postgres
+        DJANGO_DB_NAME: ${{ secrets.DJANGO_DB_NAME }}
+        DJANGO_DB_PASS: ${{ secrets.DJANGO_DB_PASS }}
+        DJANGO_DB_PORT: ${{ secrets.DJANGO_DB_PORT }}
+        DJANGO_DB_USER: ${{ secrets.DJANGO_DB_USER }}
+        DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
+        DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
     - name: Run Frontend Tests
+      env:
+        DJANGO_DB_ENGINE: ${{ secrets.DJANGO_DB_ENGINE }}
+        DJANGO_DB_HOST: postgres
+        DJANGO_DB_NAME: ${{ secrets.DJANGO_DB_NAME }}
+        DJANGO_DB_PASS: ${{ secrets.DJANGO_DB_PASS }}
+        DJANGO_DB_PORT: ${{ secrets.DJANGO_DB_PORT }}
+        DJANGO_DB_USER: ${{ secrets.DJANGO_DB_USER }}
+        DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
+        DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
       run: |
         venv/bin/python website/manage.py test converter_frontend
 
@@ -37,6 +69,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy
     needs: [test]
+    environment: production
     strategy:
       max-parallel: 1
       matrix:

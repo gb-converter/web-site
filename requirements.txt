@@ -8,3 +8,4 @@ uWSGI==2.0.19.1
 wheel==0.35.1
 loguru~=0.5.3
 djangorestframework~=3.12.2
+psycopg2==2.8.6
