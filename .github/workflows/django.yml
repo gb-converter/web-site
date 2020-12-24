@@ -101,7 +101,7 @@ jobs:
       uses: appleboy/ssh-action@master
       env:
         DJANGO_DB_ENGINE: ${{ secrets.DJANGO_DB_ENGINE }}
-        DJANGO_DB_HOST: postgres
+        DJANGO_DB_HOST: ${{ secrets.DJANGO_DB_HOST }}
         DJANGO_DB_NAME: ${{ secrets.DJANGO_DB_NAME }}
         DJANGO_DB_PASS: ${{ secrets.DJANGO_DB_PASS }}
         DJANGO_DB_PORT: ${{ secrets.DJANGO_DB_PORT }}
