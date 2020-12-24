@@ -113,7 +113,6 @@ def converter_edit(request):
                 else:
                     t_currency = float(val['Курс'].replace(',', '.'))
 
-
     if from_currency == to_currency:
         calc_result = amount_of_currency_from
     else:
@@ -121,7 +120,6 @@ def converter_edit(request):
             calc_result = round((f_currency * amount_of_currency_from) / t_currency, 4)
         except ZeroDivisionError:
             calc_result = 0
-
 
     data = {'respond':  calc_result
             }
