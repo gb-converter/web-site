@@ -113,4 +113,4 @@ jobs:
         username: ${{ secrets.PROJECT_USER }}
         port: ${{ secrets.WEB_HOST_PORT }}
         key: ${{ secrets.PROJECT_USER_KEY }}
-        script: source /home/${{ secrets.PROJECT_USER }}/.profile && yes yes | /home/${{ secrets.PROJECT_USER }}/venv/bin/python /home/${{ secrets.PROJECT_USER }}/website/manage.py collectstatic && sudo /usr/bin/systemctl restart uwsgi-app@${{ secrets.PROJECT_USER }}.service
+        script: yes yes | /home/${{ secrets.PROJECT_USER }}/venv/bin/python /home/${{ secrets.PROJECT_USER }}/website/manage.py collectstatic && sudo /usr/bin/systemctl restart uwsgi-app@${{ secrets.PROJECT_USER }}.service
