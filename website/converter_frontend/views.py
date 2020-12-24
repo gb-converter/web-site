@@ -1,6 +1,7 @@
 import os
 import json
 
+from django.http import JsonResponse
 from django.shortcuts import render
 from datetime import datetime
 import logging
@@ -72,17 +73,27 @@ def parse_json():
 
 
 def converter(request):
-    logger.info('Converter')
 
+    currencies_data = parse_json()
+    currencies_date = currencies_data.pop("Date")
+
+    context = {
+        'currency_info': currencies_data,
+        'currencies_rate_date': currencies_date
+    }
+
+    return render(request, 'converter_frontend/converter.html', context)
+
+
+def converter_edit(request):
+
+    currencies_data = parse_json()
     f_currency = 0
     t_currency = 0
 
-    currencies_data = parse_json()
-    currencies_date = parse_json().pop("Date")
-
-    from_currency = request.POST.get('from_currency', False)
-    amount_of_currency_from = abs(float(request.POST.get('amount_of_currency_from', False)))
-    to_currency = request.POST.get('to_currency', False)
+    amount_of_currency_from = abs(float(request.GET.get('input_value')))
+    to_currency = request.GET.get('to_currency_value')
+    from_currency = request.GET.get('from_currency_value')
 
     if from_currency and amount_of_currency_from and to_currency is not False:
 
@@ -91,36 +102,27 @@ def converter(request):
                 continue
 
             elif key == from_currency:
-
                 if float(val['Единица']) > 1:
                     f_currency = float(val['Курс'].replace(',', '.')) / float(val['Единица'])
                 else:
                     f_currency = float(val['Курс'].replace(',', '.'))
 
             elif key == to_currency:
-
                 if float(val['Единица']) > 1:
                     t_currency = float(val['Курс'].replace(',', '.')) / float(val['Единица'])
                 else:
                     t_currency = float(val['Курс'].replace(',', '.'))
+
 
     if from_currency == to_currency:
         calc_result = amount_of_currency_from
     else:
         try:
             calc_result = round((f_currency * amount_of_currency_from) / t_currency, 4)
-            logger.info('Calculation')
         except ZeroDivisionError:
-            logger.error('Zero division error')
             calc_result = 0
 
-    context = {
-        'currency_info': currencies_data,
-        'currencies_rate_date': currencies_date,
-        'converter': calc_result,
-        'from_currency' : from_currency,
-        'to_currency' : to_currency,
-        'num_of_currency_from' : request.POST.get('amount_of_currency_from', False)
-    }
 
-    return render(request, 'converter_frontend/converter.html', context)
+    data = {'respond':  calc_result
+            }
+    return JsonResponse(data)

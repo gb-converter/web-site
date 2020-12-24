@@ -9,7 +9,7 @@
             <h1>Конвертер валют по состоянию на {{ currencies_rate_date }}</h1>
             <form action="{% url 'converter_frontend:converter' %}" target="_self" method="post">{% csrf_token %}
 
-                <div class="main-block">
+                <div class="main-block" id="main-block">
                         <div class="from-and-to-block">
                             <label for="from_currency">У меня есть:</label>
                             <br />
@@ -26,7 +26,7 @@
                                 {% endfor %}
                             </select>
                             <br>
-                            <input type="number" min="0.0001" step="0.0001" id="amount_of_currency_from" name="amount_of_currency_from" class="rounded-input" value="{{ num_of_currency_from }}" required />
+                            <input type="number" min="0.0001" max="99999999999" step="0.0001" id="amount_of_currency_from"  name="amount_of_currency_from" class="rounded-input" value="0" required />
                         </div>
                         <div class="arrow">
                             <img src="static/converter_frontend/img/arrow.svg" alt="">
@@ -47,10 +47,9 @@
                                 {% endfor %}
                             </select>
                         <br>
-                        <div class="result">{{ converter }}</div>
+                        <div class="result" id="result">0</div>
                         </div>
                 </div>
-                <input type="submit" value="Конвертировать" class="submit-button">
             </form>
         </div>
 {% endblock %}
