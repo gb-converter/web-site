@@ -10,7 +10,7 @@ window.onload = function () {
     var to_currency_value = to_currency.value;
 
     $.ajax({
-        url: '^ajax/get_response/$',
+        url: 'ajax/get_response/',
         data: {
           'input_value': input_value,
           'from_currency_value': from_currency_value,
