@@ -8,12 +8,26 @@ on:
 
 jobs:
   test:
-
+    environment: testing
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 1
       matrix:
         python-version: [3.8]
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: ${{ secrets.DJANGO_DB_NAME }}
+          POSTGRES_PASSWORD: ${{ secrets.DJANGO_DB_PASS }}
+          POSTGRES_USER: ${{ secrets.DJANGO_DB_USER }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
     - uses: actions/checkout@v2
@@ -37,6 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy
     needs: [test]
+    environment: production
     strategy:
       max-parallel: 1
       matrix:
